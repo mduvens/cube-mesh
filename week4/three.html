@@ -1,0 +1,117 @@
+<!doctype html>
++
+<head>
+        <meta name="viewport" content="width=device-width">
+        <title>Starting with Three.js</title>
+        <style>
+                html,
+                body {
+                        padding: 0;
+                        margin: 0;
+                }
+        </style>
+</head>
+
+<body>
+        <div id="container"></div>
+        <script src="three.min.js"></script>
+        <script>
+                // Empty script section
+                // Set the scene size.
+                const WIDTH = 1920;
+                const HEIGHT = 1080;
+                // Set some camera attributes.
+                const VIEW_ANGLE = 45;
+                const ASPECT = WIDTH / HEIGHT;
+                const NEAR = 0.2;
+                const FAR = 10000;
+                // Get the DOM element to attach to
+                const container =
+                        document.querySelector('#container');
+                // Create a WebGL renderer, camera
+                // and a scene
+                const renderer = new THREE.WebGLRenderer();
+                const camera =
+                        new THREE.PerspectiveCamera(
+                        VIEW_ANGLE,
+                        ASPECT,
+                        NEAR,
+                        FAR
+                        );
+                const scene = new THREE.Scene();
+                // Add the camera to the scene.
+                scene.add(camera);
+                // Start the renderer.
+                renderer.setSize(WIDTH, HEIGHT);
+                // Attach the renderer-supplied
+                // DOM element.
+                container.appendChild(renderer.domElement);
+
+
+                // create the cube
+                const cubeMaterial =
+                        new THREE.MeshStandardMaterial({
+                                color: 0xff0051
+                        })
+                const cube =
+                        new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), cubeMaterial)
+                scene.add(cube)
+                renderer.render(scene, camera)
+                camera.position.z = 5
+                // create ambient light 
+                const ambientLight = new THREE.AmbientLight(0xffff44, 0.9);
+                scene.add(ambientLight);
+
+
+                // create a point light
+                const pointLight =
+                        new THREE.PointLight(0xFFFFFF, 1);
+                // set its position
+                pointLight.position.x = 25;
+                pointLight.position.y = 50;
+                pointLight.position.z = 25;
+                // add to the scene
+                scene.add(pointLight);
+                renderer.render(scene, camera);
+
+                
+                // Draw!
+                renderer.render(scene, camera);
+                // Schedule the next frame.
+
+
+                // Schedule the first frame.
+
+                const material = new THREE.MeshBasicMaterial({
+                color: "#dadada",
+                wireframe: true,
+                transparent: true
+                })
+                const wireframeCube = new THREE.Mesh(new THREE.BoxGeometry(2,2,2), material)
+                scene.add(wireframeCube)
+                console.log(camera.position);
+                let offset = 0.05;
+                let offset2 = 0.04
+                function animate() {
+                        requestAnimationFrame(animate)
+                        cube.rotation.x += 0.03;
+                        cube.rotation.y += 0.03;
+                        wireframeCube.rotation.x -= 0.02;
+                        wireframeCube.rotation.y -= 0.02;
+                        if (camera.position.x > 2 || camera.position.x < -2) {
+                               offset =  -offset;
+                        }
+                        camera.position.x += offset;
+                        if (camera.position.z > 7 || camera.position.z < 3) {
+                               offset2 =  -offset2;
+                        }
+                        camera.position.z += offset2;
+                       
+
+                        renderer.render(scene, camera)
+                        }
+                animate()
+        </script>
+</body>
+
+</html>
