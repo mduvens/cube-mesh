@@ -44,6 +44,12 @@ scene.add(camera)
 renderer.setSize(window.innerWidth, window.innerHeight);           
 controls = new THREE.OrbitControls(camera, renderer.domElement)
 container.appendChild(renderer.domElement);
+    //adjust window size
+    window.addEventListener('resize', () =>{
+        renderer.setSize(window.innerWidth, window.innerHeight)
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectMatrix();
+})
 camera.position.set(0,20,100)
 controls.update()
 scene.add(stars)
