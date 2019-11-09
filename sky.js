@@ -14,6 +14,7 @@ const camera =
 const pointLight =
             new THREE.PointLight(0xFFFFFF, 0.5);
 const renderer = new THREE.WebGLRenderer();
+renderer.setClearColor("#00001F")
 const scene = new THREE.Scene();
 const container = document.querySelector('#container');
 const ambientLight = new THREE.AmbientLight(0xffff44, 1.2);
