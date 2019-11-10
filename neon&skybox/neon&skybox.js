@@ -96,22 +96,12 @@ function onMouseMove(event) {
     var intersects = raycaster.intersectObjects(scene.children);
     for(var i = 0; i< intersects.length; i++){
         tl = new TimelineMax()
-        tl.to(intersects[i].object.rotation, 1,{z: offset, x: offset}).to(intersects[i].object.position, 1, {x: offsetX, y: offsetY})
+        tl.to(intersects[i].object.rotation, 1,{z: offset, x: offset}).to(intersects[i].object.position, 1, {x: Math.random() * 100 - 50, y: Math.random() * 100 - 50})
     }
     offset += Math.PI/2;
     if (offset > 2*Math.PI){
         offset = Math.PI/2
-    }
-    offsetX += 4
-    if (offsetX > 200){
-        offsetX = Math.random() * 200 - 100
-    }
-    offsetY += 3
-    if (offsetY > 200){
-        offsetY = Math.random() * 200 - 100
-    }
-    
-   
+    }       
 } 
 let offsetS = 1
 function onMouseClick(event) {
