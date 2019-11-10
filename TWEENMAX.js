@@ -22,7 +22,7 @@ var mouse = new THREE.Vector2();
 
 var dodecaG = new THREE.BoxGeometry(5,5,5)
 texture1 = new THREE.TextureLoader().load('disc.jpg')
-var dodecaM = new THREE.MeshLambertMaterial({color: 0xFF0000, map: texture1})
+var dodecaM = new THREE.MeshLambertMaterial({color: 0x0FF000, map: texture1})
 
 // **********************************************************************
 
@@ -45,25 +45,22 @@ function init (){
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
     })
-    camera.position.set(0,00,100)
     
+    camera.position.set(0,00,100)   
     controls.update()
-    
-
-console.log(camera.position);
-controls.update()
-renderer.render(scene, camera)
+    renderer.render(scene, camera)
 }
 
 function animate() {  
     
     requestAnimationFrame(animate)    
     controls.update()
-    
     renderer.render(scene, camera)
 }
 
 let offset = Math.PI/2
+let offsetX = 30
+let offsetY = 40
 
 function onMouseMove(event) {
 
@@ -75,13 +72,21 @@ function onMouseMove(event) {
     var intersects = raycaster.intersectObjects(scene.children);
     for(var i = 0; i< intersects.length; i++){
         tl = new TimelineMax()
-        tl.to(intersects[i].object.rotation, 1,{z: offset})
+        tl.to(intersects[i].object.rotation, 1,{z: offset, x: offset}).to(intersects[i].object.position, 1, {x: offsetX, y: offsetY})
     }
     offset += Math.PI/2;
     if (offset > 2*Math.PI){
         offset = Math.PI/2
     }
-} 
+    offsetX += 4
+    if (offsetX > 200){
+        offsetX = Math.random() * 200 - 100
+    }
+    offsetY += 3
+    if (offsetY > 200){
+        offsetY = Math.random() * 200 - 100
+    }
+}  
 let offsetS = 1
 function onMouseClick(event) {
 
@@ -93,7 +98,7 @@ function onMouseClick(event) {
     var intersects = raycaster.intersectObjects(scene.children);
     for(var i = 0; i< intersects.length; i++){
         tl = new TimelineMax()
-        tl.to(intersects[i].object.scale, 1,{x: offsetS})
+        tl.to(intersects[i].object.rotation, 1,{z: offset, x: offset})
     }
     offsetS++
     if (offsetS>5){offsetS=1}
